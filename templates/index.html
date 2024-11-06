@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resizer</title>
+</head>
+<body>
+    <h2>Увеличение размера изображения</h2>
+    <form action="/" method="POST" enctype="multipart/form-data">
+        <label for="file">Загрузите изображение:</label>
+        <input type="file" name="file" required><br><br>
+
+        <label for="width">Ширина (px):</label>
+        <input type="number" name="width" required><br><br>
+
+        <label for="height">Высота (px):</label>
+        <input type="number" name="height" required><br><br>
+
+        <label for="size">Целевой размер (МБ):</label>
+        <input type="number" step="0.1" name="size" required><br><br>
+
+        <button type="submit">Обработать изображение</button>
+    </form>
+</body>
+</html>
