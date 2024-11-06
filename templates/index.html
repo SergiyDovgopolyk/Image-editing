@@ -24,3 +24,39 @@
     </form>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Resize</title>
+</head>
+<body>
+
+<h1>Загрузите изображение для изменения размера</h1>
+
+<form method="POST" enctype="multipart/form-data">
+    <label for="file">Выберите файл:</label>
+    <input type="file" name="file" id="file" required><br><br>
+
+    <label for="width">Ширина:</label>
+    <input type="text" name="width" required><br><br>
+
+    <label for="height">Высота:</label>
+    <input type="text" name="height" required><br><br>
+
+    <label for="size">Размер (МБ):</label>
+    <input type="text" name="size" required><br><br>
+
+    <button type="submit">Загрузить и изменить размер</button>
+</form>
+
+{% if image_ready %}
+    <h2>Изображение изменено!</h2>
+    <a href="{{ url_for('download_image', filename='increased_image.jpg') }}">
+        <button>Скачать измененное изображение</button>
+    </a>
+{% endif %}
+
+</body>
+</html>

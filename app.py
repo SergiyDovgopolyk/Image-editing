@@ -8,6 +8,12 @@ app.config['UPLOAD_FOLDER'] = 'uploads'  # Папка для загрузок
 # Убедитесь, что папка для загрузок существует
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
+
+@app.route("/uploads/<filename>")
+def download_image(filename):
+    return send_file(os.path.join(app.config['UPLOAD_FOLDER'], filename), as_attachment=True)
+
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "POST":
@@ -25,10 +31,12 @@ def index():
         # Вызываем функцию для увеличения размера изображения
         increase_image_size(input_path, output_path, new_width, new_height, target_size_mb)
 
-        # Предлагаем готовое изображение для скачивания
-        return send_file(output_path, as_attachment=True, download_name="increased_image.jpg")
+        # Возвращаем шаблон с кнопкой для скачивания измененного изображения
+        return render_template("index.html", image_ready=True, output_path=output_path)
 
-    return render_template("index.html")
+    return render_template("index.html", image_ready=False)
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Используем порт, предоставленный Heroku, если переменная окружения PORT существует, иначе используем порт 5000 для локальной разработки
+    app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
